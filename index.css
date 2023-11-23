@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container::before {
+  background: url("images/pattern-bg-desktop.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 45%;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+  opacity: 1;
+  top: 0px;
+  left: 0;
+  content: "";
+}
+
+.container h2 {
+  padding: 1.5em 0em;
+  color: white;
+}
+
+.container form {
+  /* padding-bottom:  2em;  */
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 40%;
+}
+
+form input {
+  width: 100%;
+}
+
+form input[type="text"] {
+  padding: 1em;
+  font-size: 15px;
+  outline: 0;
+  border: none;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+form input[type="submit"] {
+  width: 55px;
+  height: 50px;
+  font-size: 1.5rem;
+  background: black;
+  cursor: pointer;
+  color: white;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transition: all 0.4s linear;
+}
+
+.ipdetails {
+  display: flex;
+  box-shadow: 0px 2px 15px 0px;
+  padding: 2em 2em;
+  width: 60%;
+  justify-content: space-between;
+  border-radius: 10px;
+  margin-top: 4em;
+  background: white;
+}
+
+#map {
+  position: relative;
+  top: -16px;
+  z-index: -17;
+  height: 100vh;
+  width: 100%;
+}
+
+@media screen and (max-width: 750px) {
+  .container::before {
+    background: url("images/pattern-bg-mobile.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 53%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 1;
+    top: 0px;
+    left: 0;
+    content: "";
+  }
+
+  .container form {
+    width: auto;
+  }
+
+  .ipdetails {
+    flex-direction: column;
+    text-align: center;
+    padding: 1em 2em;
+  }
+
+  .ipdetails br {
+    content: " ";
+  }
+
+  .ipdetails br::after {
+    content: " ";
+  }
+
+  .ipdetails hr {
+    display: none;
+  }
+
+  .data {
+    padding-bottom: 15px;
+    line-height: 30px;
+  }
+
+  .data p {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .data h3 {
+    color: #adadad;
+  }
+
+  #map {
+    z-index: -25;
+    top: 0;
+    margin-top: -220px;
+  }
+}

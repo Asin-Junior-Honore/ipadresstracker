@@ -58,77 +58,64 @@
 </html>
 
 <script>
+    const btn = document.getElementById("btn");
+    const form = document.getElementById("frm");
+    const userip = document.getElementById("ipA");
+    const userlocation = document.getElementById("mlocation");
+    const usercountry = document.getElementById("country");
+    const userisp = document.getElementById("isp");
+    const usertime = document.getElementById("timez");
+    const pcode = document.getElementById("code");
 
-
-    let btn = document.getElementById("btn");
-    let form = document.getElementById("frm");
-    let userip = document.getElementById("ipA");
-    let userlocation = document.getElementById("mlocation");
-    let usercountry = document.getElementById("country");
-    let userisp = document.getElementById("isp");
-    let usertime = document.getElementById("timez");
-    let pcode = document.getElementById("code");
-    //map initialisation
-    let map = L.map("map", {
+    const map = L.map("map", {
         zoomControl: true
-    })
-    //map initialisation
+    });
 
     const api = async () => {
-        let inputfield = document.getElementById("input-val").value.trim();
-        let key = "putyourapikeyheretotest";
-        let apienpoints = `https://geo.ipify.org/api/v2/country,city?apiKey=${key}&ipAddress=${inputfield}`;
+        const inputfield = document.getElementById("input-val").value.trim();
+        const key = "your _apikey"; // replace with your own API
+        const apienpoints = `https://geo.ipify.org/api/v2/country,city?apiKey=${key}&ipAddress=${inputfield}`;
         const res = await fetch(apienpoints);
         const data = await res.json();
-        // console.log(data);
         return data;
     };
 
-
-    showdata = async (values) => {
-        Trans = await api()
+    const showdata = async () => {
+        const Trans = await api();
         userip.innerText = Trans.ip;
         userlocation.innerHTML = Trans.location.city;
         usercountry.innerText = Trans.location.region;
         userisp.innerText = Trans.isp;
         usertime.innerText = Trans.location.timezone;
         pcode.innerText = Trans.location.postalCode;
-        let lat = Trans.location.lat
-        let lng = Trans.location.lng
+        const lat = Trans.location.lat;
+        const lng = Trans.location.lng;
 
         map.setView([lat, lng], 16);
-        let osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        });
-        osm.addTo(map);
 
-        // tilelayersfor map
-        let googlemap = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
             maxZoom: 20,
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        });
-        googlemap.addTo(map)
+        }).addTo(map);
 
-        var mycon = L.icon({
+        const mycon = L.icon({
             iconUrl: 'images/icon-location.svg',
             iconSize: [45, 45]
         });
 
-        marker = L.marker([lat, lng], { icon: mycon })
-        let popup = marker.bindPopup(`welcome to ${userlocation}`).openPopup()
-        popup.addTo(map)
-
-
-    }
+        const marker = L.marker([lat, lng], { icon: mycon }).addTo(map);
+        marker.bindPopup(`Welcome to ${userlocation.innerHTML}`).openPopup();
+    };
 
     form.onsubmit = (e) => {
-        e.preventDefault()
-        showdata()
-    }
+        e.preventDefault();
+        showdata();
+    };
 
-
-    window.addEventListener("DOMContentLoaded", showdata)
-
+    window.addEventListener("DOMContentLoaded", showdata);
 
 </script>
